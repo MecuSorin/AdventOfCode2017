@@ -51,6 +51,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AdventOfCode2017.fs" />
+    <Compile Include="Puzzle1.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

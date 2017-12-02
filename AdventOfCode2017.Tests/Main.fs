@@ -1,7 +1,7 @@
-module AdventOfCode2017.Tests
+module AdventOfCode2017Tests
 
 open Expecto
-open AdventOfCode2017
+open AdventOfCode2017.Common
 
 [<Tests>]
 let tests =
@@ -10,4 +10,4 @@ let tests =
 
 [<EntryPoint>]
 let main argv =
-    Tests.runTestsInAssembly defaultConfig argv
+    runTestsInAssembly defaultConfig argv
