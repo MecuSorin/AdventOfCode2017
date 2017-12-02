@@ -1,0 +1,17 @@
+language: csharp
+#solution: solution-name.sln
+# matrix:
+#   include:
+#     - dotnet: 2.0.3
+#       mono: none
+#       dist: trusty
+#       env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
+#     - mono: latest
+# mono:
+#   - latest
+#dotnet: 2.0.3
+mono: latest
+  
+script:
+  - mono .paket/paket.bootstrapper.exe 
+  - ./build.sh Tests

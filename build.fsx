@@ -5,7 +5,7 @@
 #r "./packages/FAKE/tools/FakeLib.dll"
 
 open Fake
-open System
+open Fake.Testing.Expecto
 
 // --------------------------------------------------------------------------------------
 // Build variables
@@ -13,32 +13,40 @@ open System
 
 let buildDir  = "./build/"
 let appReferences = !! "/**/*.fsproj"
-let testsReferences = !! "/**/*ests.fsproj" ++ "/**/*pecs.fsproj"
-let dotnetcliVersion = "2.0.3"
-let mutable dotnetExePath = "dotnet"
+let testsReferences = "/**/bin/**/*ests.exe"
 
 // --------------------------------------------------------------------------------------
 // Helpers
 // --------------------------------------------------------------------------------------
+let paketRestore mbGroup =
+    let parameters = Paket.PaketRestoreDefaults()
+    use __ = traceStartTaskUsing "PaketRestore" parameters.WorkingDir
 
-let run' timeout cmd args dir =
-    if execProcess (fun info ->
-        info.FileName <- cmd
-        if not (String.IsNullOrWhiteSpace dir) then
-            info.WorkingDirectory <- dir
-        info.Arguments <- args
-    ) timeout |> not then
-        failwithf "Error while running '%s' with args: %s" cmd args
+    let restoreGroupArg = 
+        match mbGroup with
+        | Some group -> sprintf "restore --group %s" group
+        | None -> "restore"
 
-let run = run' System.TimeSpan.MaxValue
-
-let runDotnet workingDir args =
-    let result =
+    let restoreResult =
         ExecProcess (fun info ->
-            info.FileName <- dotnetExePath
-            info.WorkingDirectory <- workingDir
-            info.Arguments <- args) TimeSpan.MaxValue
-    if result <> 0 then failwithf "dotnet %s failed" args
+            info.FileName <- parameters.ToolPath
+            info.WorkingDirectory <- parameters.WorkingDir
+            info.Arguments <- restoreGroupArg ) parameters.TimeOut
+    if restoreResult <> 0 then failwithf "Error during restore %s." parameters.WorkingDir 
+
+let targetBuild _ =
+    MSBuildRelease "" "Build" appReferences
+        |> Log "AppBuild-Output: "
+
+let targetTests _ =
+    !! testsReferences
+    |> Expecto (fun p ->
+        { p with
+            Debug = false
+            Parallel = true
+            ListTests = false
+            Summary = true
+        })
 
 // --------------------------------------------------------------------------------------
 // Targets
@@ -48,52 +56,25 @@ Target "Clean" (fun _ ->
     CleanDirs [buildDir]
 )
 
-Target "InstallDotNetCLI" (fun _ ->
-    dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
-)
-
 Target "Restore" (fun _ ->
-    appReferences
-    |> Seq.iter (fun p ->
-        let dir = System.IO.Path.GetDirectoryName p
-        runDotnet dir "restore"
-    )
+   paketRestore None
 )
 
-Target "BuildWithoutRestore" (fun _ ->
-    appReferences
-    |> Seq.iter (fun p ->
-        let dir = System.IO.Path.GetDirectoryName p
-        runDotnet dir "build"
-    )
-)
-
-Target "Build" (fun _ ->
-    appReferences
-    |> Seq.iter (fun p ->
-        let dir = System.IO.Path.GetDirectoryName p
-        runDotnet dir "build"
-    )
-)
-
-Target "Tests" (fun _ ->
-    testsReferences
-    |> Seq.iter (fun p ->
-        let dir = System.IO.Path.GetDirectoryName p
-        runDotnet dir "run --summary"
-    )
-)
+Target "BuildWithoutRestore" targetBuild
+Target "Build" targetBuild
+Target "Tests" targetTests
+Target "TestsWithoutRestore" targetTests
 
 // --------------------------------------------------------------------------------------
 // Build order
 // --------------------------------------------------------------------------------------
 
 "Clean"
-  ==> "InstallDotNetCLI"
   ==> "Restore"
   ==> "Build"
+  ==> "Tests"
 
 "BuildWithoutRestore"
-    ==> "Tests"
+    ==> "TestsWithoutRestore"
 
-RunTargetOrDefault "Tests"
+RunTargetOrDefault "TestsWithoutRestore"
