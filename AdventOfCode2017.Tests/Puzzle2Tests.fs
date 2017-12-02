@@ -1,15 +1,42 @@
 namespace AdventOfCode2017
 
+open System.Runtime.InteropServices.ComTypes
 module Puzzle2 =
-    let public extremeDiff (input: string) = 
+    let parseString (input: string) = 
         input.Split([|'\n'|], System.StringSplitOptions.RemoveEmptyEntries)
         |> Array.map (fun s -> 
             s.Split([|' '; '\t'|], System.StringSplitOptions.RemoveEmptyEntries)
             |> Array.map int)
+    
+    let public extremeDiff input = 
+        parseString input
         |> Array.sumBy (fun s ->
             let max = Array.max s
             let min = Array.min s
             max - min )
+
+    let divisors items nr =
+        items
+        |> Array.choose (fun t ->
+            if nr = 1 || nr = t
+            then None
+            elif 0 = t % nr 
+            then Some (t / nr)
+            // elif 0 = nr % t
+            // then Some nr / t
+            else None)
+        |> Array.tryHead
+
+
+    let getTheDividersScale (numbers: int []) =
+        numbers
+        |> Array.choose (divisors numbers)
+        |> Array.tryHead
+        |> Option.defaultValue 0
+
+    let sumOfDividers input = 
+        parseString input
+        |> Array.sumBy getTheDividersScale
 
 
 module Puzzle2Tests =
@@ -50,19 +77,15 @@ module Puzzle2Tests =
 
 
 
-    // let basePuzzle12Test testFunction label sample expected = testFunction label <| fun _ ->
-    //     expected ==? findCaptcha2 sample
+    let basePuzzle12Test testFunction label sample expected = testFunction label <| fun _ ->
+        expected ==? sumOfDividers sample
 
     
-    // [<Tests>]
-    // let sample21 = basePuzzle12Test testCase "Sample 1212" "1212" 6
-    // [<Tests>]
-    // let sample22 = basePuzzle12Test testCase "Sample 1221" "1221" 0
-    // [<Tests>]
-    // let sample23 = basePuzzle12Test testCase "Sample 123425" "123425" 4
-    // [<Tests>]
-    // let sample24 = basePuzzle12Test testCase "Sample 123123" "123123" 12
-    // [<Tests>]
-    // let sample25 = basePuzzle12Test testCase "Sample 12131415" "12131415" 4
-    // [<Tests>]
-    // let puzzle1_2 = basePuzzle12Test testCase "Puzzle 1 > 2" puzzle1Sample 1152
+    [<Tests>]
+    let sample21 = basePuzzle12Test testCase "Sample 5 9 2 8" "5 9 2 8" 4
+    [<Tests>]
+    let sample22 = basePuzzle12Test testCase "Sample 9 4 7 3" "9 4 7 3" 3
+    [<Tests>]
+    let sample23 = basePuzzle12Test testCase "Sample 3 8 6 5" "3 8 6 5" 2
+    [<Tests>]
+    let puzzle2_2 = basePuzzle12Test testCase "Puzzle 2 > 2" puzzle2Sample 267
