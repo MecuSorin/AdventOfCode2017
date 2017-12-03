@@ -47,13 +47,24 @@ module Puzzle2Tests =
 
     let basePuzzle21Test testFunction label expected sample= testFunction label <| fun _ ->
         expected ==? extremeDiff sample
+    let basePuzzle22Test testFunction label sample expected = testFunction label <| fun _ ->
+        expected ==? sumOfDividers sample
 
     [<Tests>]
-    let sample1 = basePuzzle21Test testCase "Sample 5 1 9 5" 8 "5 1 9 5"
-    [<Tests>]
-    let sample2 = basePuzzle21Test testCase "Sample 7 5 3" 4 "7 5 3"
-    [<Tests>]
-    let sample3 = basePuzzle21Test testCase "Sample 2 4 6 8" 6 "2 4 6 8"
+    let samples =
+        testList 
+            "Puzzle 2"
+            [   testList 
+                    "Samples 1" 
+                    [   basePuzzle21Test testCase "Sample 5 1 9 5" 8 "5 1 9 5"
+                        basePuzzle21Test testCase "Sample 7 5 3" 4 "7 5 3"
+                        basePuzzle21Test testCase "Sample 2 4 6 8" 6 "2 4 6 8" ]
+                testList
+                    "Samples 2"
+                    [   basePuzzle22Test testCase "Sample 5 9 2 8" "5 9 2 8" 4
+                        basePuzzle22Test testCase "Sample 9 4 7 3" "9 4 7 3" 3
+                        basePuzzle22Test testCase "Sample 3 8 6 5" "3 8 6 5" 2 ]
+            ]
 
     let puzzle2Sample = """6046	6349	208	276	4643	1085	1539	4986	7006	5374	252	4751	226	6757	7495	2923
 1432	1538	1761	1658	104	826	806	109	939	886	1497	280	1412	127	1651	156
@@ -73,19 +84,8 @@ module Puzzle2Tests =
 3021	3407	218	1043	449	214	1594	3244	3097	286	114	223	1214	3102	257	3345"""
    
     [<Tests>]
-    let puzzle2_1 = basePuzzle21Test testCase "Puzzle 2 > 1" 50376 puzzle2Sample
-
-
-
-    let basePuzzle12Test testFunction label sample expected = testFunction label <| fun _ ->
-        expected ==? sumOfDividers sample
-
-    
-    [<Tests>]
-    let sample21 = basePuzzle12Test testCase "Sample 5 9 2 8" "5 9 2 8" 4
-    [<Tests>]
-    let sample22 = basePuzzle12Test testCase "Sample 9 4 7 3" "9 4 7 3" 3
-    [<Tests>]
-    let sample23 = basePuzzle12Test testCase "Sample 3 8 6 5" "3 8 6 5" 2
-    [<Tests>]
-    let puzzle2_2 = basePuzzle12Test testCase "Puzzle 2 > 2" puzzle2Sample 267
+    let puzzle2 =
+        testList
+            "Puzzle 2" 
+            [   basePuzzle21Test testCase "1" 50376 puzzle2Sample
+                basePuzzle22Test testCase "2" puzzle2Sample 267 ]
