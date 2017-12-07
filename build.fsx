@@ -45,7 +45,7 @@ let targetTests _ =
             Debug = false
             Parallel = true
             ListTests = false
-            Summary = true
+            Summary = false
             FailOnFocusedTests = false
         })
 
