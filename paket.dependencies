@@ -4,4 +4,5 @@ framework: >= net461
 
 nuget Expecto
 nuget FAKE ~> 4.63
+nuget FParsec
 nuget FSharp.Core
