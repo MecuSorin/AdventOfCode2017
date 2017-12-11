@@ -69,6 +69,7 @@
     <Compile Include="Puzzle5Tests.fs" />
     <Compile Include="Puzzle6Tests.fs" />
     <Compile Include="Puzzle7Tests.fs" />
+    <Compile Include="Puzzle8Tests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,13 +78,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <ProjectReference Include="..\AdventOfCode2017\AdventOfCode2017.fsproj">
       <Name>AdventOfCode2017</Name>
       <Project>{7701cc68-ed29-4797-8284-1f327d50c5cf}</Project>
       <Private>True</Private>
     </ProjectReference>
-  </ItemGroup>
+  </ItemGroup> -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
