@@ -122,18 +122,6 @@ module Puzzle7Tests =
     open Expecto
     open Puzzle7
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-    let expectSome label mbVal =
-        Expect.isSome mbVal label
-        mbVal.Value 
-    let expectAtLeastOne label collection =
-        let result = collection |> Seq.toList
-        match result with
-        | [] -> 
-            Expect.isTrue false label
-            []
-        | _ ->  result
-
     let basePuzzle71Test testFunction label sample expected = testFunction label <| fun _ ->
         expected ==? findTheRoot sample
 

@@ -36,8 +36,6 @@ module Puzzle6Tests =
     open Expecto
     open Puzzle6
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-
     let basePuzzle61Test testFunction label sample expected = testFunction label <| fun _ ->
         expected ==? (countBalanceCycles sample |> fst)
     let basePuzzle62Test testFunction label sample expected = testFunction label <| fun _ ->

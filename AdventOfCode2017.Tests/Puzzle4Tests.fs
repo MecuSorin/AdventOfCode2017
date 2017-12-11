@@ -21,8 +21,6 @@ module Puzzle4Tests =
     open Expecto
     open Puzzle4
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-
     let basePuzzle41Test testFunction label sample expected = testFunction label <| fun _ ->
         expected ==? validPassphrase part1Morpher sample
     let basePuzzle42Test testFunction label sample expected = testFunction label <| fun _ ->

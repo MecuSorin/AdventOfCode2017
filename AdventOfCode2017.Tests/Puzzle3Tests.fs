@@ -236,8 +236,6 @@ module Puzzle3Tests =
     open Expecto
     open Puzzle3
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-
     let basePuzzle31Test testFunction label expected sample = testFunction label <| fun _ ->
         expected ==? calculateMovement sample
 

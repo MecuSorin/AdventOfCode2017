@@ -6,12 +6,10 @@ module PuzzleTests =
     open Expecto
     open Puzzle
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-
     let basePuzzle1Test testFunction label sample expected = testFunction label <| fun _ ->
         expected ==?  sample
-    let basePuzzle2Test testFunction label sample expected = testFunction label <| fun _ ->
-        expected ==?  sample
+    // let basePuzzle2Test testFunction label sample expected = testFunction label <| fun _ ->
+    //     expected ==?  sample
 
     [<Tests>]
     let samples =
@@ -30,11 +28,11 @@ module PuzzleTests =
             ]
 
 
-    let puzzleSample = 
-    [<Tests>]
-    let puzzle1 =
-        testList 
-            "Puzzle "
-            [   basePuzzle1Test testCase "1" puzzleSample
-                basePuzzle2Test testCase "2" puzzleSample
-            ]
+    // let puzzleSample = 
+    // [<Tests>]
+    // let puzzle =
+    //     testList 
+    //         "Puzzle "
+    //         [   basePuzzle1Test testCase "1" puzzleSample
+    //             basePuzzle2Test testCase "2" puzzleSample
+    //         ]

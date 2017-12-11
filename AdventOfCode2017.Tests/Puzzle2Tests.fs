@@ -43,8 +43,6 @@ module Puzzle2Tests =
     open Expecto
     open Puzzle2
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
-
     let basePuzzle21Test testFunction label expected sample= testFunction label <| fun _ ->
         expected ==? extremeDiff sample
     let basePuzzle22Test testFunction label sample expected = testFunction label <| fun _ ->

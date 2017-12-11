@@ -1,3 +1,5 @@
 Expecto
 FSharp.Core
 FParsec
+FSharpx.Extras
+FSharpx.Collections
