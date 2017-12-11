@@ -47,7 +47,7 @@ module Resources =
         let source = 
             sourceFile
             |> pathCombine "InputsAndSamples"
-            |> pathCombine "AdventOfCode2017.Tests"
+            |> pathCombine "src"
             |> pathCombine "."
         match findFilePath source with
         | Some sourcePath -> File.ReadAllText(sourcePath)
