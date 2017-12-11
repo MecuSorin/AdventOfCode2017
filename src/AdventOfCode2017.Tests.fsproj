@@ -62,14 +62,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Common.fs" />
-    <Compile Include="Puzzle1Tests.fs" />
-    <Compile Include="Puzzle2Tests.fs" />
-    <Compile Include="Puzzle3Tests.fs" />
-    <Compile Include="Puzzle4Tests.fs" />
-    <Compile Include="Puzzle5Tests.fs" />
-    <Compile Include="Puzzle6Tests.fs" />
-    <Compile Include="Puzzle7Tests.fs" />
-    <Compile Include="Puzzle8Tests.fs" />
+    <Compile Include="Puzzle01Tests.fs" />
+    <Compile Include="Puzzle02Tests.fs" />
+    <Compile Include="Puzzle03Tests.fs" />
+    <Compile Include="Puzzle04Tests.fs" />
+    <Compile Include="Puzzle05Tests.fs" />
+    <Compile Include="Puzzle06Tests.fs" />
+    <Compile Include="Puzzle07Tests.fs" />
+    <Compile Include="Puzzle08Tests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>
