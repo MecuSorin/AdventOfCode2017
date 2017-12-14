@@ -53,6 +53,8 @@ module Resources =
         | Some sourcePath -> File.ReadAllText(sourcePath)
         | None -> failwithf "Cannot find the file %s relative to the path %s" source System.Environment.CurrentDirectory
 
+    let (.|.) fn a b = fn b a
+
 [<AutoOpen>]
 module ExpectoExtra =
     open Expecto

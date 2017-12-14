@@ -1,6 +1,5 @@
 namespace AdventOfCode2017
 
-open Mono.Cecil
 type River =
     | Group of River List
     | Garbage of GarbageKind list
