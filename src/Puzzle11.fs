@@ -1,8 +1,6 @@
 namespace AdventOfCode2017
 
 open FSharpx
-open System.Runtime.InteropServices
-open Expecto.Flip.Expect
 
 module Puzzle11 =
     type Position = 

@@ -1,6 +1,5 @@
 namespace AdventOfCode2017
 
-open System.Runtime.InteropServices.ComTypes
 module Puzzle2 =
     let parseString (input: string) = 
         input.Split([|'\n'|], System.StringSplitOptions.RemoveEmptyEntries)

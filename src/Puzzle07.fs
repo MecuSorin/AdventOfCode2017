@@ -1,44 +1,41 @@
 namespace AdventOfCode2017
 
 open System.Collections.Generic
-open System.Runtime.Remoting.Messaging
-open System.Net.NetworkInformation
-open Puzzle3Attempt1
-
-type Tree = 
-    | Leaf of Data
-    | Node of Data * Tree []
-
-and Data =
-    {   label:string
-        weight: int }
-    with
-        static member create (l, w) = { label = l; weight = w}
-
-and ReadRowResult =
-    | LooseNode of Data * string list option
-
-module Parsers =
-    open FParsec
-
-    let parseLabel = spaces >>. many1CharsTill letter spaces1
-    let parseWeight = between (pstring "(") (pstring ")") pint32 .>> spaces
-    let parseArrow = pstring "->" .>> spaces1
-    let parseListOfLabels = sepBy (spaces >>. many1Chars letter) (pstring ",") .>> spaces
-    let parseArrowAndListOfLabels = parseArrow >>. parseListOfLabels
-    let rowParser = 
-        parseLabel 
-        .>>. parseWeight 
-        |>> Data.create
-        .>>. opt parseArrowAndListOfLabels 
-        |>> LooseNode
-
-    let readRows input = 
-        match input |> run (many (spaces >>. rowParser)) with
-        | Success (a, _, _) -> Some a
-        | Failure _ -> None
 
 module Puzzle7 =
+    type Tree = 
+        | Leaf of Data
+        | Node of Data * Tree []
+
+    and Data =
+        {   label:string
+            weight: int }
+        with
+            static member create (l, w) = { label = l; weight = w}
+
+    and ReadRowResult =
+        | LooseNode of Data * string list option
+
+    module Parsers =
+        open FParsec
+
+        let parseLabel = spaces >>. many1CharsTill letter spaces1
+        let parseWeight = between (pstring "(") (pstring ")") pint32 .>> spaces
+        let parseArrow = pstring "->" .>> spaces1
+        let parseListOfLabels = sepBy (spaces >>. many1Chars letter) (pstring ",") .>> spaces
+        let parseArrowAndListOfLabels = parseArrow >>. parseListOfLabels
+        let rowParser = 
+            parseLabel 
+            .>>. parseWeight 
+            |>> Data.create
+            .>>. opt parseArrowAndListOfLabels 
+            |>> LooseNode
+
+        let readRows input = 
+            match input |> run (many (spaces >>. rowParser)) with
+            | Success (a, _, _) -> Some a
+            | Failure _ -> None
+
     let getLooseRows input =
         Parsers.readRows input
         |> Option.get

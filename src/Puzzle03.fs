@@ -1,16 +1,19 @@
 namespace AdventOfCode2017
 
-type Direction = 
-    | Up
-    | Down
-    | Left
-    | Right
+module Puzzle3Domain =
+    type Direction = 
+        | Up
+        | Down
+        | Left
+        | Right
 
-type Position = 
-    {   h: int 
-        v: int }
+    type Position = 
+        {   h: int 
+            v: int }
 
 module Puzzle3Attempt1 =
+    open Puzzle3Domain
+
     type Position  
         with 
             static member root = { h = 0; v = 0}
@@ -128,6 +131,8 @@ module Puzzle3Attempt1Tests =
             [   basePuzzle31Test testCase "1" 480 347991 ]
 
 module Puzzle3 =
+    open Puzzle3Domain
+    
     let makeStep direction position =
         match direction with
         | Up -> { position with v = position.v - 1 }

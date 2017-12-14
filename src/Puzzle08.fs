@@ -3,28 +3,29 @@ namespace AdventOfCode2017
 open FSharpx
 open System.Collections.Generic
 
-type Literal =
-    | Register of string
-    | Number of int
-and Operation =
-    | Noop
-    | Increment of Literal * Literal
-    | Decrement of Literal * Literal
-and Command =
-    | If of Expression * trueOp: Operation * elseOp: Operation
-and Expression =
-    | Boolean of Literal * Condition * Literal
-and Condition =
-    | GreaterEqual
-    | SmallerEqual
-    | Greater
-    | Smaller
-    | Equal
-    | NotEqual
-
-type State = Result<Dictionary<string, int>, string>
-
 module Puzzle =
+
+    type Literal =
+        | Register of string
+        | Number of int
+    and Operation =
+        | Noop
+        | Increment of Literal * Literal
+        | Decrement of Literal * Literal
+    and Command =
+        | If of Expression * trueOp: Operation * elseOp: Operation
+    and Expression =
+        | Boolean of Literal * Condition * Literal
+    and Condition =
+        | GreaterEqual
+        | SmallerEqual
+        | Greater
+        | Smaller
+        | Equal
+        | NotEqual
+
+    type State = Result<Dictionary<string, int>, string>
+    
     module Parsers =
         open FParsec
         let pRegister = spaces >>? many1Chars letter |>> Register

@@ -1,6 +1,10 @@
 namespace AdventOfCode2017
 
+open System
+open FSharpx
+
 module Puzzle =
+
 
 module PuzzleTests =
     open Expecto
@@ -19,12 +23,14 @@ module PuzzleTests =
                     "Samples 1"
                     [   basePuzzle1Test testCase "Sample "
                         basePuzzle1Test testCase "Sample "
-                        basePuzzle1Test testCase "Sample " ]
+                        basePuzzle1Test testCase "Sample "
+                    ]
                 // testList
                 //     "Samples 2"
                 //     [   basePuzzle2Test testCase "Sample "
                 //         basePuzzle2Test testCase "Sample "
-                //         basePuzzle2Test testCase "Sample " ]
+                //         basePuzzle2Test testCase "Sample " 
+                //     ]
             ]
 
 

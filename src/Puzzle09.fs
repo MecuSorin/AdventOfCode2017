@@ -1,13 +1,13 @@
 namespace AdventOfCode2017
 
-type River =
-    | Group of River List
-    | Garbage of GarbageKind list
-and GarbageKind =
-    | Char of char
-    | Ignored of char
-
 module Puzzle9 =
+    type River =
+        | Group of River List
+        | Garbage of GarbageKind list
+    and GarbageKind =
+        | Char of char
+        | Ignored of char
+
     module Parsers =
         open FParsec
 

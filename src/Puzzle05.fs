@@ -10,7 +10,7 @@ module Puzzle5 =
     let countStepsToFreedom offsetUpdater (input: string) =
         let maze = 
             input.Split([|'\n'; ' '|], System.StringSplitOptions.RemoveEmptyEntries)
-            |> Array.filter (fun s -> not <| System.String.IsNullOrWhiteSpace(s))
+            |> Array.filter (System.String.IsNullOrWhiteSpace >> not)
             |> Array.map (fun s -> s.Trim() |> int)
         let mazeSize = maze.Length
         let rec traverseMaze steps positionIndex =

@@ -1,6 +1,5 @@
 namespace AdventOfCode2017
 
-open System
 module Puzzle10 =
     type State =
         {   currentPosition: int
