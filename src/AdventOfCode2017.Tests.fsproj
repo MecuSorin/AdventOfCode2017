@@ -72,6 +72,7 @@
     <Compile Include="Puzzle08.fs" />
     <Compile Include="Puzzle09.fs" />
     <Compile Include="Puzzle10.fs" />
+    <Compile Include="Puzzle11.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>
