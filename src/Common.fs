@@ -1,5 +1,6 @@
 namespace AdventOfCode2017
 
+open FParsec
 [<AutoOpen>]
 module ChoiceBase =
     type Result<'s,'e> = Choice<'s,'e>
@@ -23,6 +24,10 @@ module Choice =
     let orDefault defaultValue = function
         | Success s -> s
         | Fail _ -> defaultValue
+    let fromParserResult (parserResult: ParserResult<'r,'us>) : Choice<'r, string> =
+        match parserResult with
+        | ParserResult.Success (result, _, _) -> Success result
+        | Failure (reason, _, _) -> Fail reason
 
 
 [<AutoOpen>]

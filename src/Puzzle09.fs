@@ -27,10 +27,8 @@ module Puzzle9 =
         do pGroupMutable := pGroup
 
         let readUsing parser sample =
-            match sample |> run parser with
-            | Success (river, _, _) -> ChoiceBase.Success river
-            | Failure (reason, _, _) -> Fail reason
-        
+            sample |> run parser
+            |> Choice.fromParserResult
 
     let countGroups rootGroup =
         let rec loop level = function

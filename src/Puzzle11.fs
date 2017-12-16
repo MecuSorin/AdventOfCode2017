@@ -29,9 +29,8 @@ module Puzzle11 =
             spaces 
             >>. sepBy (choice [pNE; pNW; pN; pSE; pSW; pS]) (spaces >>. pchar ',' .>> spaces)
         let readMovements input =
-            match run pDirection input with
-            | Success (result, _, _) -> ChoiceBase.Success result
-            | Failure (reason, _, _) -> Fail reason
+            run pDirection input
+            |> Choice.fromParserResult
 
     let getDisplacementFromZero pos =
         match pos.row = 0, pos.col = 0 with

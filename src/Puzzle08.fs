@@ -50,9 +50,8 @@ module Puzzle =
             |>> fun (trueOp, condition) -> If (condition, trueOp, Noop)
         let pCommands = many pIf
         let readGrammar parser input =
-            match input |> run parser with
-            | Success (command, _, _) -> ChoiceBase.Success command
-            | Failure (reason, _, _) -> Fail reason
+            input |> run parser 
+            |> Choice.fromParserResult
         let readCommands = readGrammar pCommands
     
     module EvaluateCommands =

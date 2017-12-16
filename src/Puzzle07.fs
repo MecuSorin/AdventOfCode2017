@@ -32,13 +32,12 @@ module Puzzle7 =
             |>> LooseNode
 
         let readRows input = 
-            match input |> run (many (spaces >>. rowParser)) with
-            | Success (a, _, _) -> Some a
-            | Failure _ -> None
+            input |> run (many (spaces >>. rowParser)) 
+            |> Choice.fromParserResult
 
     let getLooseRows input =
         Parsers.readRows input
-        |> Option.get
+        |> Choice.value
 
     let findTheRoot (input: string) =
         let rows = getLooseRows input
@@ -124,7 +123,7 @@ module Puzzle7Tests =
 
     let readRowTest testFunction label sample expected = testFunction label <| fun _ ->
         Parsers.readRows sample
-        |> expectSome "able to read rows"
+        |> expectSuccess "able to read rows"
         |> expectAtLeastOne "a least one thing"
         |> List.head
         ==? expected
@@ -132,7 +131,7 @@ module Puzzle7Tests =
     let readRowsTest testFunction label sample expected = testFunction label <| fun _ ->
         let actual =
             Parsers.readRows sample
-            |> expectSome "able to read rows"
+            |> expectSuccess "able to read rows"
             |> expectAtLeastOne "a least one thing"
         Expect.sequenceEqual actual expected "Failed on reading more rows" 
 
