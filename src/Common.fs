@@ -30,6 +30,12 @@ module Choice =
         | Failure (reason, _, _) -> Fail reason
 
 
+[<RequireQualifiedAccess>]
+module String =
+    let split (byChars: #seq<char>) (s: string) =
+        s.Split(Seq.toArray byChars, System.StringSplitOptions.RemoveEmptyEntries)
+
+
 [<AutoOpen>]
 module Resources =
     open System.IO
