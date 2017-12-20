@@ -35,6 +35,16 @@ module Puzzle10 =
         |> Array.map ( Array.reduce (^^^) >> (sprintf "%02x"))
         |> String.concat ""
     
+    let knotHash size (sample: string) =
+        let lengths =
+            sample
+            |> System.Text.Encoding.ASCII.GetBytes
+            |> Array.map int
+            |> (Array.append .|. [|17; 31; 73; 47; 23|])
+        [1..64]
+        |> List.fold (fun s _ ->
+            hash s lengths) (State.Zero [| 0 .. size - 1|])
+        |> extractSign
 
 module Puzzle10Tests =
     open Expecto
@@ -47,16 +57,7 @@ module Puzzle10Tests =
         |> fun s -> s.numbers.[0] * s.numbers.[1]
         ==? expected
     let basePuzzle102Test testFunction label size (sample: string) expected = testFunction label <| fun _ ->
-        let lengths =
-            sample
-            |> System.Text.Encoding.ASCII.GetBytes
-            |> Array.map int
-            |> (Array.append .|. [|17; 31; 73; 47; 23|])
-        [1..64]
-        |> List.fold (fun s _ ->
-            hash s lengths) (State.Zero [| 0 .. size - 1|])
-        |> extractSign
-        ==? expected
+        knotHash size sample ==? expected
 
     [<Tests>]
     let samples =
