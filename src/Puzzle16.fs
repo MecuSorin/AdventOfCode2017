@@ -80,6 +80,7 @@ module Puzzle16Tests =
     let Puzzle16Sample = readFile "day16Input"
     [<Tests>]
     let Puzzle16 =
+        // taking too long to keep them on
         ptestList 
             "Puzzle16 "
             [   basePuzzle161Test testCase "1" 'p' Puzzle16Sample "gkmndaholjbfcepi"
