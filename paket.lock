@@ -24,6 +24,10 @@ NUGET
     FSharpx.Extras (2.2.1)
       FSharpx.Async
       FSharpx.Collections
+    Hopac (0.3.23)
+      FSharp.Core (>= 3.1.2.5) - restriction: && (>= net461) (< netstandard1.6)
+      FSharp.Core (>= 4.0.1.7-alpha) - restriction: && (>= net461) (>= netstandard1.6)
+      NETStandard.Library (>= 1.6) - restriction: && (>= net461) (>= netstandard1.6)
     Microsoft.NETCore.Platforms (2.0.1) - restriction: || (&& (>= monotouch) (>= net461)) (&& (< net45) (>= net461) (>= netstandard2.0)) (&& (>= net461) (>= netcoreapp2.0)) (&& (>= net461) (>= netstandard1.6)) (&& (>= net461) (>= xamarinios)) (&& (>= net461) (>= xamarinmac)) (&& (>= net461) (>= xamarintvos)) (&& (>= net461) (>= xamarinwatchos))
     Mono.Cecil (0.10.0-beta7)
     NETStandard.Library (2.0.1) - restriction: && (>= net461) (>= netstandard1.6)

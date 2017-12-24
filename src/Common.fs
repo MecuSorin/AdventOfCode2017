@@ -36,6 +36,14 @@ module String =
         s.Split(Seq.toArray byChars, System.StringSplitOptions.RemoveEmptyEntries)
 
 
+module Map =
+    open System.Collections.Generic
+    
+    let tryFindd key (dictionary: Dictionary<'a, 'b>) =
+        match dictionary.TryGetValue key with
+        | true, v -> Some v
+        | false, _ -> None
+
 [<AutoOpen>]
 module Resources =
     open System.IO
@@ -70,7 +78,7 @@ module Resources =
 module ExpectoExtra =
     open Expecto
 
-    let (==?) expected actual = Expect.equal actual expected "Should be equal"
+    let (==?) expected actual = Expect.equal expected actual "Should be equal"
     let expectSome label mbVal =
         Expect.isSome mbVal label
         mbVal.Value 
